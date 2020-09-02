@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>DND App</title>
+        <title>Matt's Sitelist</title>
         <meta charset="UTF-8"/>
 
         <!-- Link CSS Here -->
@@ -9,13 +9,18 @@
 
     <body>
         <header>
-            <h1>DND Creation Tool</h1>
+            <h1>Visit one of my beautiful websites</h1>
         </header>
 
+        <ul>
+            <li><a id="dnd-app-ref" href="./projects/dnd-app/">DND Homebrew Editor App</a></li>
+        </ul>
+
         <!-- Load JavaScript here -->
-        <script src="./src/scripts/init.js"></script>
         <script>
-            document.addEventListener('load', main, false);
+            document.addEventListener('load', function(evt){
+                //document.getElementById('dnd-app-ref').click();
+            }, false);
         </script>
     </body>
 </html>
