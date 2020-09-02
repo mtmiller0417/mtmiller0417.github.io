@@ -1,0 +1,29 @@
+body {
+
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+
+    margin: 5px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
