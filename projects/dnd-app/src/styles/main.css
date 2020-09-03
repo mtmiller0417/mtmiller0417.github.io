@@ -1,0 +1,107 @@
+/* || Define Variables here */
+:root {
+    /*--color-header-bkg: #3a3a3d;*/
+    --color-dark: #2e2e31;
+    --color-light: #f2f3f4;
+}
+
+/* || General Element Styles */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background-color: var(--color-light);
+}
+
+header {
+    margin: 0;
+    padding: 0px 8px;
+    line-height: 240%;
+
+    background-color: var(--color-dark);
+    color: var(--color-light);
+}
+
+a {
+    cursor: pointer;
+}
+
+/* || Object Oriented styles to change placement */
+
+.hide { display: none; }
+
+.f-box-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.f-box-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.f-y-center {
+    align-items: center;
+}
+
+.f-justify-end {
+    justify-content: flex-end;
+}
+
+.w-100 { width: 100%; }
+
+.right { margin-left: auto; }
+
+.left { margin-right: auto; }
+
+.clickable { cursor: pointer; }
+
+/* || Object Oriented Styles */
+
+.page-content {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.tab-item {
+    padding: 8px 20px;
+    margin: 0;
+
+    width: 8%;
+    font-size: 18px;
+    text-align: center;
+
+    border: 1px solid transparent;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    box-sizing: border-box;
+}
+
+.tab-item:hover {
+    border-left-color: var(--color-light);
+    border-right-color: var(--color-light);
+}
+
+
+/* || High Level Specific Styles */
+
+#title {
+    font-size: 31px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+#displayed-content {
+    width: 100%;
+}
+
+#tab-container {
+    width: 100%;
+    height: 100%;
+    margin-right: 2%;
+    justify-content: flex-end;
+    align-items: center;
+}

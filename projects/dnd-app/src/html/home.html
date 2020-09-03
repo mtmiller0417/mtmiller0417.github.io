@@ -3,9 +3,43 @@
     <head>
         <title>DND App</title>
         <meta charset="UTF-8"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Link CSS here -->
+        <link rel="stylesheet" href="../styles/main.css" />
     </head>
 
     <body>
-        
+        <header class="f-box-row f-y-center">
+            <span id="title" class="clickable">Homebrew Creation Tool</span>
+            <nav id="tab-container" class="f-box-row">
+                <a class="tab-item">Races</a>
+                <a class="tab-item">Classes</a>
+                <a class="tab-item">Features</a>
+                <a class="tab-item">Spells</a>
+                <a class="tab-item">Items</a>
+            </nav>
+        </header>
+
+        <!-- Container for the content that is displayed currently-->
+        <main id="displayed-content">
+            <div id="home" class="page-content">
+                <p id="description">
+                    Here, you can customize your campaign rules as much as you want.
+                </p>
+            </div>
+        </main>
+
+        <!-- Container for all the content that is loaded but not shown right now -->
+        <div id="hidden-content" class="hide">
+
+        </div>
+
+        <!-- Load JavaScript Files -->
+        <script src="../scripts/init.js"></script>
+        <script>
+            document.addEventListener('load', main(), false);
+        </script>
     </body>
 </html>
