@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Grocery Organizer</title>
+
+        <!-- Load jQuery from local file -->
+        <script src="../../../global-resources/jquery-3.5.1.js"></script>
+
+        <!-- Link Styles -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link href="../styles/main.css" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <!-- Header -->
+        <header class="flex-row">
+            <h1 id="title">Grocery Organizer</h1>
+            <div id="import-container">
+                <label class="btn" for="file-import">Import List</label>
+                <input type="file" name="file-import"/>
+            </div>
+        </header>
+
+        <!-- Key display -->
+        <div id="key" class="hidden">
+            <div class="flex-col">
+                <span><b>a</b> : Alexa</span>
+                <span><b>e</b> : Mia</span>
+                <span><b>j</b> : Justin</span>
+                <span><b>l</b> : Lili</span>
+                <span><b>m</b> : Matt</span>
+            </div> 
+        </div>
+
+        <!-- Name input -->
+        <div id="name-input-container">
+            <label for="name">Name&nbsp;</label>
+            <input id="name-input" type="text" placeholder="List name" name="name" autofocus/>
+        </div>
+
+        <!-- Main Table -->
+        <main id="table">
+
+            <!-- Table Header -->
+        <div id="table-header" class="flex-row">
+            <div class="c item-cell">Item</div>
+            <div class="c price-cell">Unit Price</div>
+            <div class="c who-cell">Who?</div>
+        </div>
+
+            <!-- Table Body -->
+        <div id="list-container" class="flex-col">
+            <div class="flex-row tr">
+                <div class="c item-cell flex-row">
+                    <input type="text" placeholder="item name"/>
+                    <input type="number" class="quantity" value="1" step="1" min="0" max="99" data-prior-value="1"/>
+                </div>
+                <div class="c price-cell flex-row">
+                    <span>$</span>
+                    <input type="text" placeholder="individual price" data-unit-price="null"/>
+                </div>
+                <div class="c who-cell flex-row">
+                    <input type="text" placeholder="who will use it?"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export button -->
+        <div id="export-btn" class="btn">Export</div>
+
+        <!-- Output display -->
+        <section id="output" class="hidden">
+            <div class="flex-row">
+                <!-- Main text of output -->
+                <section>
+                    <h1></h1>
+                    
+                    <div id="output-metadata">
+                        <span id="total-price-output"><b>Total:</b></span>
+                        |
+                        <span id="items-amount-output"><b>Items</b></span>
+                    </div> 
+                    
+                    <!-- Totals each person owes -->
+                    <div id="totals" class="flex-row">
+                        <!-- Format: <span><b>Matt:&nbsp;</b>$</span> -->
+                    </div>
+
+                    <!-- Print receipt -->
+                    <div id="receipt" class="flex-col">
+                        <b>Receipt</b>
+                        
+                    </div>
+                </section>
+                <!-- Icons on the side -->
+                <nav class="flex-col">
+                    <i class="material-icons md-36" title="copy to clipboard">content_copy</i>
+                    <i class="material-icons md-36" title="download as file">file_download</i>
+                </nav>
+            </div>
+        </section>
+
+        </main>
+    
+
+        <!-- Load JavaScript Files -->
+        <script src="../scripts/helper.js"></script>
+        <script src="../scripts/event-handler.js"></script>
+        <script src="../scripts/callbacks.js"></script>
+        <script src="../scripts/export.js"></script>
+
+        <!-- Main JS File, load others first -->
+        <script src="../scripts/init.js"></script>
+        <script>
+            $(document).ready( main() );
+        </script>
+    </body>
+</html>

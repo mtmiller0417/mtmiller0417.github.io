@@ -1,0 +1,1 @@
+/// <reference path="../../../global-resources/jquery-3.5.1.js" />

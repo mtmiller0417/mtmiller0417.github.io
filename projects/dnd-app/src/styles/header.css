@@ -1,0 +1,48 @@
+/* || Element Styles */
+
+header {
+    margin: 0;
+    padding: 0px 8px;
+    line-height: 240%;
+
+    background-color: var(--color-dark);
+    color: var(--color-light);
+}
+
+/* || Class Styles */
+
+nav .tab-item {
+    padding: 8px 20px;
+    margin: 0;
+
+    width: 8%;
+    font-size: 18px;
+    text-align: center;
+
+    border: 1px solid transparent;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    box-sizing: border-box;
+}
+
+nav .tab-item:hover {
+    border-left-color: var(--color-light);
+    border-right-color: var(--color-light);
+}
+
+/* || ID Styles */
+
+#title {
+    font-size: 31px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+#tab-container {
+    width: 100%;
+    height: 100%;
+    margin-right: 2%;
+    justify-content: flex-end;
+    align-items: center;
+}
