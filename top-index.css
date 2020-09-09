@@ -1,22 +1,30 @@
 body {
-
+    box-sizing: border-box;
 }
 
 ul {
+    box-sizing: border-box;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-a {
-    text-decoration: none;
+li {
+    width: min-content;
+    white-space: nowrap;
+    box-sizing: border-box;
     color: inherit;
     font-size: 20px;
 
-    margin: 5px;
+    margin: 20px;
     padding: 8px;
     border-radius: 10px;
     border: 1px solid black;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 a:hover {
