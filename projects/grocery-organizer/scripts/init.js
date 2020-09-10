@@ -52,10 +52,14 @@ function initButtonFunctionality(){
     let $importBtn = $('#import-container label');
     let $exportBtn = $('#export-btn');
     let $clearBtn = $();
+    let $copyBtn = $('#content-copy');
+    let $downloadBtn = $('#file-download');
 
     $importBtn.on('click', handleImportBtn);
     $exportBtn.on('click', handleExportBtn);
     $clearBtn.on('click', handleClear);
+    $copyBtn.on('click', handleContentCopyBtn);
+    //$downloadBtn.on('click', handleDownloadBtn)
 }
 
 

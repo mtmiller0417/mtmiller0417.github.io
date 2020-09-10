@@ -22,6 +22,8 @@
             </div>
         </header>
 
+        <div id="#copied-notification">Copied!</div>
+
         <!-- Key display -->
         <div id="key" class="hidden">
             <div class="flex-col">
@@ -90,19 +92,18 @@
                     <!-- Print receipt -->
                     <div id="receipt" class="flex-col">
                         <b>Receipt</b>
-                        
+
                     </div>
                 </section>
                 <!-- Icons on the side -->
                 <nav class="flex-col">
-                    <i class="material-icons md-36" title="copy to clipboard">content_copy</i>
-                    <i class="material-icons md-36" title="download as file">file_download</i>
+                    <i id="content-copy" class="material-icons md-36" title="copy to clipboard">content_copy</i>
+                    <i id="file-download" class="material-icons md-36" title="download as file">file_download</i>
                 </nav>
             </div>
         </section>
 
         </main>
-    
 
         <!-- Load JavaScript Files -->
         <script src="../scripts/helper.js"></script>

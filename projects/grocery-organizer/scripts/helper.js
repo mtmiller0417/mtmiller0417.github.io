@@ -209,8 +209,8 @@ function getOutputasText(){
         }
     });
 
-    console.log('Receipt as Text');
-    console.log(lines.join('\n'));
+    //console.log('Receipt as Text');
+    //console.log(lines.join('\n'));
 
     return lines.join('\n');
 }
@@ -230,4 +230,27 @@ function trIsEmpty($tr){
         }
     });
     return true;
+}
+
+function copyToClipboard(text) {
+    let $temp = $('<textarea>');
+    $temp.html(text);
+    $("body").append($temp);
+    $temp.val(text).select();
+    //$temp.trigger('focus')
+    document.execCommand("copy", false, null);
+    $temp.remove();
+
+    copiedNotification();
+}
+
+
+function copiedNotification(){
+    let $cn = $('#copied-notification');
+    $cn.fadeIn('slow');
+    /*$('#copied-notification').removeClass('hidden').fadeIn('slow', function(){
+        setTimeout(function(){
+            $(this).fadeOut('slow');
+        }, 3000);
+    });*/
 }

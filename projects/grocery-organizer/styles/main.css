@@ -2,7 +2,7 @@
 /* || Variables */
 
 :root {
-    --color-warm-gray: rgb(65, 65, 65);
+    --color-warm-gray: rgb(63, 63, 63); /*65, 65, 65*/
     --color-slate-gray-blue: rgb(83, 104, 115);
 
     --list-width: 400px;
@@ -311,6 +311,18 @@ input[type="file"] {
 #receipt span {
     font-size: 13px;
 }
+
+#copied-notification {
+    opacity: 0;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+}
+
+.relative{ position: relative; }
 
 /* || Google Material Design Styles */
 

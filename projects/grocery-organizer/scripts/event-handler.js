@@ -72,7 +72,10 @@ function handleExportBtn(event){
  * @param {Event} event 
  */
 function handleContentCopyBtn(event){
+    //console.log('copy btn');
+    let text = getOutputasText();
 
+    copyToClipboard( text );
 }
 
 /**
