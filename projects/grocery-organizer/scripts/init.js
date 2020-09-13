@@ -51,7 +51,7 @@ function initButtonFunctionality(){
     // Get reference to buttons
     let $importBtn = $('#import-container label');
     let $exportBtn = $('#export-btn');
-    let $clearBtn = $();
+    let $clearBtn = $('#clear-btn');
     let $copyBtn = $('#content-copy');
     let $downloadBtn = $('#file-download');
 
@@ -64,19 +64,3 @@ function initButtonFunctionality(){
 
 
 // color: #777;
-
-/*
-
-    // Set MutationObserver settings
-    let config = {
-        attributes: true, 
-        subtree: true
-    };
-
-    // Create mutation observer and callback function  
-    let observer = new MutationObserver(listItemCallback);
-
-    // Begin observing the node
-    observer.observe($listItem.get(0), config);
-
- */

@@ -28,6 +28,19 @@ function handleImportBtn(event){
  */
 function handleExportBtn(event){
     //console.log('export')
+    let priorWidth = $(this).width();
+    if( $(this).text().toLowerCase() === 'export' ){
+        $(this).text('Hide');
+    } else if( $(this).text().toLowerCase() === 'hide' ) {
+        $(this).text('Export');
+        $('#output').fadeOut('slow', function(){
+            $(this).addClass('hidden');
+        });
+        return;
+    }
+
+    // Ensure width always stays the same
+    $(this).width(priorWidth);
 
     // clear old export first
     clearOutput();
@@ -63,7 +76,7 @@ function handleExportBtn(event){
     // Make the output visible
     $('#output').fadeIn('slow', function(){
         $(this).removeClass('hidden');
-    })
+    });
 }
 
 /**
@@ -85,9 +98,15 @@ function handleContentCopyBtn(event){
 function handleClear(event){
     // find diff options for alert  
 
-    let selection = alert('Are you sure you want to clear the data?\n\
-    This operation cannot be undone.');
-    console.log('alert selection', selection)
+    let selection = window.confirm(
+        'Are you sure you want to clear the data?\n\
+        This operation cannot be undone.'
+    );
+    
+    if(selection){
+        // Hide the output
+        $('#output').addClass('hidden');
+    }
 }
 
 /* || 'change' events */
@@ -106,7 +125,11 @@ function handleInputChange(event){
 
 
     if( $target.is($itemName) ){
-        
+        if($target.val().trim() != '' && $target.val() != null){
+            setInputValidity($target, 'valid');
+        } else {
+            setInputValidity($target, 'invalid');
+        }
     }
     else if( $target.is($itemQuantity) ){
         // Attempt to conver the new value to an int
@@ -115,8 +138,12 @@ function handleInputChange(event){
         // Check if it is not a valid int
         if( isNaN( valAsInt ) || valAsInt < 0 ){
             // If not, change it back to prior value  
-            valAsInt = $target.attr('data-prior-value');
+            //valAsInt = $target.attr('data-prior-value');
+
+            setInputValidity($target, 'invalid');
+
         } else {
+            setInputValidity($target, 'valid');
             // If it is, update prior-value
             $target.attr('data-prior-value', valAsInt) 
         }
@@ -129,10 +156,15 @@ function handleInputChange(event){
     }
     else if( $target.is($price) ){
         // Convert value to a money format N.NN
-        convertValToMoney( $target );
+        convertValToMoney($target);
 
-        // Check if it's a valid number, if not clear it
-        checkValidNumber( $target );
+        // Check if it's a valid number, if not note it as invalid
+        if( checkValidNumber($target) ){
+            setInputValidity($target, 'valid');
+        } else {
+            setInputValidity($target, 'invalid');
+            return;
+        }
 
         // Set the unit price
         $target.attr('data-unit-price', $target.val());
@@ -141,14 +173,32 @@ function handleInputChange(event){
         updatePriceByQuantity($itemQuantity, $target);
     }
     else if( $target.is($who) ){
-        
+        let arr = target.val().split(splitRE);
+        let validValues = 'a e m j l all'.split(' ');
+        let valid = arr.every((entry, index) => {
+            for(value of validValues){
+                if(entry.toLowerCase() === value)
+                    return true;
+            }
+            // If the entry did not watch any validValue
+            return false;
+        });
+
+        if(valid){
+            setInputValidity($target, 'valid');
+        } else {
+            setInputValidity($target, 'invalid');
+        }
     }
 
     // If every line entry has been filled out
     if($itemName.val() && $itemQuantity.val() && $price.val() && $who.val()){
         // Append new line( if the next line isnt empty )
         if( !$target.parents('.tr').next().length || !trIsEmpty($target.parents('.tr').next()) ){
-            appendNewLine(); 
+            if( isRowValid($target.parents('.tr')) ){
+                appendNewLine(); 
+            }
+            
         } else {
             //$(this).focus();
         }
@@ -173,10 +223,11 @@ function handleInputChange(event){
  */
 function handleKeydown(event){
     //console.log( event.key );
+    let $tr = $(event.target).parents('.tr');
 
     if(event.key === 'Tab'){
         // If there are no next tr to tab to...
-        if(!$(this).parents('.tr').next().length){
+        if(!$(this).parents('.tr').next().length && isRowValid($tr)){
             console.log('tab supressed')
             // Tab was pressed
             // Supress default opetation 

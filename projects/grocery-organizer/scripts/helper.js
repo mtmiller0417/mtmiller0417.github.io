@@ -1,5 +1,7 @@
 /// <reference path="../../../global-resources/jquery-3.5.1.js" />
 
+let splitRE =  /,\s|,|\s|,\s*/;
+
 /**
  * Round-up or round-down?
  * @param {JQuery} $element A JQuery object
@@ -17,7 +19,8 @@ function convertValToMoney($element){
  */
 function checkValidNumber($element){
     if( isNaN(parseFloat($element.val())) || parseFloat($element.val) <= 0 ){
-        $element.val(null);    
+        //$element.val(null);    
+        return false;
     }
 }
 
@@ -59,8 +62,8 @@ function resetInputVal($input){
  */
 function clearOutput(){
     $('#output h1').text('');
-    $('#total-price-output').html('<b>Total: </b>');
-    $('#total-price-output').html('<b>Items: </b>');
+    $('#total-price-output').html('<b>Total:</b>');
+    $('#items-amount-output').html('<b>Items</b>');
 
     $('#totals').children().each(function(){
         $(this).detach();
@@ -99,7 +102,7 @@ function calcWhoWhat(){
     let itemAmount = 0;
 
     // Split on "," OR ", " OR " " OR ", *"(any amount of spaces after ',')
-    var re = /,\s|,|\s|,\s*/; 
+    //var re = /,\s|,|\s|,\s*/; 
 
     $('#list-container .tr').each(function(){
         if( $(this).find('.item-cell input:first').val() ){
@@ -114,7 +117,7 @@ function calcWhoWhat(){
                 itemQuantity: $(this).find('.item-cell input:last').val(),
                 unitPrice: $(this).find('.price-cell input').attr('data-unit-price'),
                 totalPrice: $(this).find('.price-cell input').val(),
-                who: $(this).find('.who-cell input').val().split(re)
+                who: $(this).find('.who-cell input').val().split(splitRE)
             };
 
             // Push the row elements directly into the dataList variable
@@ -237,7 +240,6 @@ function copyToClipboard(text) {
     $temp.html(text);
     $("body").append($temp);
     $temp.val(text).select();
-    //$temp.trigger('focus')
     document.execCommand("copy", false, null);
     $temp.remove();
 
@@ -247,10 +249,67 @@ function copyToClipboard(text) {
 
 function copiedNotification(){
     let $cn = $('#copied-notification');
-    $cn.fadeIn('slow');
-    /*$('#copied-notification').removeClass('hidden').fadeIn('slow', function(){
-        setTimeout(function(){
-            $(this).fadeOut('slow');
-        }, 3000);
-    });*/
+    $cn.css('opacity', '.6');
+    setTimeout(function(){
+       $cn.css('opacity', '0');
+    }, 3000);
+}
+
+/**
+ * 
+ * @param {JQuery} $input 
+ */
+function signalValidInput($input){
+    let validBkgColor = rgba(109, 255, 109, 0.5);
+    $input.css('background-color',validBkgColor);
+}
+
+/**
+ * 
+ * @param {JQuery} $input 
+ */
+function signalInalidInput($input){
+    let invalidBkgColor = rgba(255, 0, 0, 0.5);
+    $input.css('background-color', invalidBkgColor);
+}
+
+/**
+ * 
+ * @param {JQuery} $input
+ * @param {['valid', 'invalid']} validityStr one of 'valid' or 'invalid'
+ */
+function setInputValidity($input, validityStr){
+    validityStr = validityStr.toLowerCase();
+    if(validityStr === 'valid'){
+        $input.attr('data-valid', 'valid');
+        $input.parents('.tr input[readonly="readonly"]').each(function(){
+            $(this).removeAttr('readonly');
+        });
+    } 
+    else if(validityStr === 'invalid'){
+        $input.attr('data-valid', 'invalid');
+        $input.parents('.tr').find('input').not($input).not('[readonly="readonly"]').each(function(){
+            $(this).attr('readonly', 'readonly');
+        });
+    }
+    else {
+        // Wrong input provided
+        return new Error(
+            'Incorrect input string provied. \
+            Not "valid" or "invalid"'
+        );
+    }
+}
+
+/**
+ * 
+ * @param {JQuery} $tr 
+ */
+function isRowValid($tr){
+    $tr.children('input').each(function(){
+        if($target.attr('data-valid', 'invalid')){
+            return false;
+        }
+    });
+    return true;
 }

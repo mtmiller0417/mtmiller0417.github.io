@@ -22,7 +22,7 @@
             </div>
         </header>
 
-        <div id="#copied-notification">Copied!</div>
+        <div id="copied-notification">Copied!</div>
 
         <!-- Key display -->
         <div id="key" class="hidden">
@@ -55,21 +55,25 @@
         <div id="list-container" class="flex-col">
             <div class="flex-row tr">
                 <div class="c item-cell flex-row">
-                    <input type="text" placeholder="item name"/>
-                    <input type="number" class="quantity" value="1" step="1" min="0" max="99" data-prior-value="1"/>
+                    <input type="text" placeholder="item name" data-valid="null"/>
+                    <input type="number" class="quantity" value="1" step="1" min="0" max="99" data-prior-value="1" data-valid="null"/>
                 </div>
                 <div class="c price-cell flex-row">
                     <span>$</span>
-                    <input type="text" placeholder="individual price" data-unit-price="null"/>
+                    <input type="text" placeholder="individual price" data-unit-price="null" data-valid="null"/>
                 </div>
                 <div class="c who-cell flex-row">
-                    <input type="text" placeholder="who will use it?"/>
+                    <input type="text" placeholder="who will use it?" data-valid="null"/>
                 </div>
             </div>
         </div>
 
         <!-- Export button -->
-        <div id="export-btn" class="btn">Export</div>
+        <div class="flex-row">
+            <div id="export-btn" class="btn">Export</div>
+            <div id="clear-btn" class="btn">Clear</div>
+        </div>
+        
 
         <!-- Output display -->
         <section id="output" class="hidden">
