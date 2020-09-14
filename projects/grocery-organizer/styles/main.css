@@ -1,12 +1,4 @@
-
-/* || Variables */
-
-:root {
-    --color-warm-gray: rgb(63, 63, 63); /*65, 65, 65*/
-    --color-slate-gray-blue: rgb(83, 104, 115);
-
-    --list-width: 400px;
-}
+@import './util.css';
 
 /* || Element Styles */
 

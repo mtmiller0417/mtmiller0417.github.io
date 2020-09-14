@@ -108,7 +108,7 @@ function calcWhoWhat(){
     //var re = /,\s|,|\s|,\s*/; 
 
     $('#list-container .tr').each(function(){
-        if( $(this).find('.item-cell input:first').val() ){
+        if( $(this).find('.item-cell input:first').val() && $(this).find('.quantity').val() != 0 ){
             // Get the elements
             let $tmp = $(this).find('.who-cell input').val().toLowerCase();
             if($tmp.toLowerCase() === 'all'){

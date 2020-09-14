@@ -224,8 +224,8 @@ function handleInputChange(event){
     // If every input element(besides quantity) is empty *OR* if quantity is 0
     else if( (!$itemName.val() && !$price.val() && !$price.val() && !$who.val()) || ($itemQuantity.val() == 0) ){
         let $trList = $target.parents('#list-container').children('.tr');
-        // If there is more than one tr
-        if($trList.length > 1){
+        // If there is more than one tr and you're not deleting the last one
+        if($trList.length > 1 && !$target.parents('.tr').is($trList.last())){
             // Remove the current empty one
             $target.parents('.tr').fadeOut(0.5, function(){
                 $target.detach();
