@@ -22,6 +22,7 @@ function checkValidNumber($element){
         //$element.val(null);    
         return false;
     }
+    return true;
 }
 
 /**
@@ -68,7 +69,7 @@ function clearOutput(){
     $('#totals').children().each(function(){
         $(this).detach();
     });
-    $('#receipt').children().not('b').each(function(){
+    $('#receipt').children().not('b').not('#receipt-header').each(function(){
         $(this).detach();
     });
 }
@@ -98,6 +99,8 @@ function calcWhoWhat(){
         l: 0,
         m: 0
     };
+    /* { a:Number, e:Number, m:Number, j:Number, l:Number } */
+    let runningTotalList = []; 
     let absTotal = 0;
     let itemAmount = 0;
 
@@ -107,9 +110,10 @@ function calcWhoWhat(){
     $('#list-container .tr').each(function(){
         if( $(this).find('.item-cell input:first').val() ){
             // Get the elements
-            let tmp = $(this).find('.who-cell input').val().toLowerCase();
-            if(tmp === 'all'){
-                tmp = 'a,e,j,l,m';
+            let $tmp = $(this).find('.who-cell input').val().toLowerCase();
+            if($tmp.toLowerCase() === 'all'){
+                console.log('all');
+                $tmp = 'a e j l m';
             }
 
             let newDataRow = {
@@ -117,41 +121,29 @@ function calcWhoWhat(){
                 itemQuantity: $(this).find('.item-cell input:last').val(),
                 unitPrice: $(this).find('.price-cell input').attr('data-unit-price'),
                 totalPrice: $(this).find('.price-cell input').val(),
-                who: $(this).find('.who-cell input').val().split(splitRE)
+                who: $tmp.split(splitRE)
             };
 
             // Push the row elements directly into the dataList variable
             dataList.push(newDataRow);
 
             let rowReceipt = { a: '+$0.00', e: '+$0.00', j: '+$0.00', l: '+$0.00', m: '+$0.00' };
-
             absTotal += parseFloat(newDataRow.totalPrice);
             itemAmount += parseInt (newDataRow.itemQuantity);
+            
+            let rowReceiptTotal = { a: 0, e: 0, m: 0, j: 0, l: 0  };
 
             let priceEach = newDataRow.totalPrice / newDataRow.who.length;
             for(let person of newDataRow.who){
                 // Split the price of who bought it and add it to each of their total 
                 runningTotal[person] += priceEach;
                 rowReceipt[person] = '+$' + getAsNearestCent(priceEach) + '';
+                rowReceiptTotal[person] = priceEach;
             }
 
-            /**
-            * (1) Banana @ $2.00 (a,e,m): a:$9.36, ... 
-            * 1 Banana $2.00 a:$9.36 || e:$2.01(+$1.00)
-            */
+            runningTotalList.push(rowReceiptTotal);
 
-            let quanitytStr = '(' + newDataRow.itemQuantity + ')';
-            let fractionStr = '1/' + newDataRow.who.length;
-            let receiptStr = quanitytStr + newDataRow.itemName  + 
-                ' @ $' + getAsNearestCent( newDataRow.unitPrice ) + '($' + getAsNearestCent( newDataRow.totalPrice ) + ')' +
-                ' (' + newDataRow.who.toString() + ') : ' + 
-                'a:$' + getAsNearestCent(runningTotal.a) + rowReceipt.a +
-                ', e:$' + getAsNearestCent(runningTotal.e) + rowReceipt.e +
-                ', j:$' + getAsNearestCent(runningTotal.j) + rowReceipt.j +
-                ', l:$' + getAsNearestCent(runningTotal.l) + rowReceipt.l +
-                ', m:$' + getAsNearestCent(runningTotal.m) + rowReceipt.m;
-
-            receiptStr = newDataRow.itemQuantity + ' ' + newDataRow.itemName  + 
+            let receiptStr = newDataRow.itemQuantity + ' ' + newDataRow.itemName  + 
                 '(s) $' + getAsNearestCent( newDataRow.totalPrice ) + ' ' +
                 ' : ' + 
                 'Alexa:' + rowReceipt.a +
@@ -166,15 +158,13 @@ function calcWhoWhat(){
         }        
     });
 
-    //console.log(dataList);
-    //console.log(receiptList)
-
     return {
         dataList: dataList,
         receiptList: receiptList, 
         totals: runningTotal,
         absTotal: absTotal,
-        itemAmount: itemAmount
+        itemAmount: itemAmount,
+        runningTotalList: runningTotalList
     }
 }
 
@@ -280,9 +270,10 @@ function signalInalidInput($input){
  */
 function setInputValidity($input, validityStr){
     validityStr = validityStr.toLowerCase();
+
     if(validityStr === 'valid'){
         $input.attr('data-valid', 'valid');
-        $input.parents('.tr input[readonly="readonly"]').each(function(){
+        $input.parents('.tr').find('input[readonly="readonly"]').each(function(){
             $(this).removeAttr('readonly');
         });
     } 
@@ -312,4 +303,44 @@ function isRowValid($tr){
         }
     });
     return true;
+}
+
+/**
+ *
+ */
+function addReceiptRow(itemName, quantity, rowData){
+    let $receiptRow = $('<div class="receipt-row flex-row"></div>');
+
+    console.log('rowData', rowData)
+
+    let aTotal = rowData.a,
+        eTotal = rowData.e,
+        mTotal = rowData.m,
+        jTotal = rowData.j,
+        lTotal = rowData.l;
+
+    let quantityWidth = $('#receipt-header .receipt-quantity').width(); 
+    console.log('quantityWidth', quantityWidth)
+
+    let itemNameWidth = $('#receipt-header .item-name').width();
+    console.log('itemNameWidth', itemNameWidth)
+
+    let nameTotalWidth = $('#receipt-header .name-total:first-child').width();
+    console.log('nameTotalWidth', nameTotalWidth)
+
+
+    let $receiptHeaderContainer = $('<div class="receipt-header-container flex-row"></div>');
+    $receiptHeaderContainer.append( $('<div class="receipt-quantity receipt-item"></div>').html(quantity).width(quantityWidth) );
+    $receiptHeaderContainer.append( $('<div class="item-name receipt-item"></div>').html(itemName).width(itemNameWidth) );
+    $receiptRow.append($receiptHeaderContainer);
+
+    let $nameTotalContainer = $('<div class="name-total-container flex-row"></div>');
+    $nameTotalContainer.append( $('<div class="name-total receipt-item"></div>').html('+$' + numToDollar(aTotal)).width(nameTotalWidth) );
+    $nameTotalContainer.append( $('<div class="name-total receipt-item"></div>').html('+$' + numToDollar(eTotal)).width(nameTotalWidth) );
+    $nameTotalContainer.append( $('<div class="name-total receipt-item"></div>').html('+$' + numToDollar(mTotal)).width(nameTotalWidth) );
+    $nameTotalContainer.append( $('<div class="name-total receipt-item"></div>').html('+$' + numToDollar(jTotal)).width(nameTotalWidth) );
+    $nameTotalContainer.append( $('<div class="name-total receipt-item"></div>').html('+$' + numToDollar(lTotal)).width(nameTotalWidth) );
+    $receiptRow.append($nameTotalContainer);
+
+    $('#receipt').append($receiptRow);
 }

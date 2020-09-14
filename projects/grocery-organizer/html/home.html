@@ -56,7 +56,7 @@
             <div class="flex-row tr">
                 <div class="c item-cell flex-row">
                     <input type="text" placeholder="item name" data-valid="null"/>
-                    <input type="number" class="quantity" value="1" step="1" min="0" max="99" data-prior-value="1" data-valid="null"/>
+                    <input type="number" class="quantity" value="1" step="1" min="0" max="99" data-prior-value="1" data-valid="valid"/>
                 </div>
                 <div class="c price-cell flex-row">
                     <span>$</span>
@@ -96,7 +96,19 @@
                     <!-- Print receipt -->
                     <div id="receipt" class="flex-col">
                         <b>Receipt</b>
-
+                        <div id="receipt-header" class="receipt-row flex-row">
+                            <div class="receipt-header-container flex-row">
+                                <div class="receipt-quantity receipt-item">&nbsp;&nbsp;</div>
+                                <div class="item-name receipt-item">&nbsp;Item&nbsp;Name&nbsp;</div>
+                            </div>
+                            <div class="name-total-container flex-row">
+                                <div class="name-total receipt-item">Alexa</div>
+                                <div class="name-total receipt-item">Mia</div>
+                                <div class="name-total receipt-item">Matt</div>
+                                <div class="name-total receipt-item">Justin</div>
+                                <div class="name-total receipt-item">Lili</div>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <!-- Icons on the side -->
@@ -118,7 +130,7 @@
         <!-- Main JS File, load others first -->
         <script src="../scripts/init.js"></script>
         <script>
-            $(document).ready( main() );
+            $(document).ready(main());
         </script>
     </body>
 </html>

@@ -68,15 +68,28 @@ function handleExportBtn(event){
 
     // Append receipt
     for(let line of whoWhatData.receiptList){
-        $('#receipt').append('<span>' + line + '</span>\n');
-    }
+        //$('#receipt').append('<span>' + line + '</span>\n');
 
-    let text = getOutputasText();
+        //addReceiptRow();
+    }
 
     // Make the output visible
     $('#output').fadeIn('slow', function(){
         $(this).removeClass('hidden');
+
+        for(let i = 0; i < whoWhatData.dataList.length; i++){
+            console.log(i);
+            // Get variables
+            let name = whoWhatData.dataList[i].itemName;
+            let q = whoWhatData.dataList[i].itemQuantity;
+            // Set receipt row
+            addReceiptRow(name, q, whoWhatData.runningTotalList[i]);
+        }
     });
+
+    
+
+    let text = getOutputasText();
 }
 
 /**
@@ -125,6 +138,7 @@ function handleInputChange(event){
 
 
     if( $target.is($itemName) ){
+        console.log($target.val());
         if($target.val().trim() != '' && $target.val() != null){
             setInputValidity($target, 'valid');
         } else {
@@ -155,9 +169,6 @@ function handleInputChange(event){
         updatePriceByQuantity($target, $price);
     }
     else if( $target.is($price) ){
-        // Convert value to a money format N.NN
-        convertValToMoney($target);
-
         // Check if it's a valid number, if not note it as invalid
         if( checkValidNumber($target) ){
             setInputValidity($target, 'valid');
@@ -166,6 +177,9 @@ function handleInputChange(event){
             return;
         }
 
+        // Convert value to a money format N.NN
+        convertValToMoney($target);
+
         // Set the unit price
         $target.attr('data-unit-price', $target.val());
         
@@ -173,14 +187,18 @@ function handleInputChange(event){
         updatePriceByQuantity($itemQuantity, $target);
     }
     else if( $target.is($who) ){
-        let arr = target.val().split(splitRE);
+        let arr = $target.val().split(splitRE);
         let validValues = 'a e m j l all'.split(' ');
         let valid = arr.every((entry, index) => {
             for(value of validValues){
+                // if there is an 'all' it must be first
+                if(entry.toLowerCase()  === 'all' && index != 0)
+                    return false;
                 if(entry.toLowerCase() === value)
                     return true;
             }
             // If the entry did not watch any validValue
+            console.log('entry', entry)
             return false;
         });
 

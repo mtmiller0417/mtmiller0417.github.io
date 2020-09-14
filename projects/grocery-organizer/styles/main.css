@@ -56,12 +56,18 @@ input[type="file"] {
 }
 
 input[data-valid="valid"]{
-    background-color: rgba(109, 255, 109, 0.3);
-    background-color: rgba(0, 255, 0, 0.25);
+    /*background-color: rgba(109, 255, 109, 0.3);
+    background-color: rgba(0, 255, 0, 0.25);*/
+
+    box-shadow: 0 0 5px 1px rgb(0, 255, 0);
+    border-color: rgb(0, 255, 0);
 }
 
 input[data-valid="invalid"]{
-    background-color: rgba(255, 0, 0, 0.25);
+    /*background-color: rgba(255, 0, 0, 0.25);*/
+
+    box-shadow: 0 0 5px 1px red;
+    border-color: red;
 }
 
 
@@ -152,21 +158,52 @@ input[data-valid="invalid"]{
     margin: 2px 6px;
 }
 
-/*.item-cell input[type="number"] {
-    width: 35px;
-    font-size: 15px;
-    border: 1px solid black;
-    border-radius: 0;
-    margin-left: 5px;
-    padding: 0;
-}*/
-
 .quantity {
     width: 35px;
     font-size: 15px;
     /*border: 1px solid black;*/
     border-radius: 0;
     padding: 0;
+}
+
+.receipt-row {
+    /*justify-content: space-around;*/  
+    width: 100%;
+}
+
+.name-total-container {
+    width: 70%;
+}
+
+.receipt-header-container {
+    width: 30%;
+}
+
+.receipt-header-container .receipt-item {
+    min-width: min-content;
+    text-align: center;
+}
+
+.receipt-item{
+    box-sizing: border-box;
+    width: 10%;
+    margin: 0 auto;
+    padding: 0 6px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+.receipt-quantity {
+    width: 10%;
+}
+
+.item-name {
+    width: 90%;
+}
+
+.name-total {
+    box-sizing: border-box;
+    width: 20%;
 }
 
 .change-quantity{
@@ -334,6 +371,16 @@ input[data-valid="invalid"]{
 
 #receipt span {
     font-size: 13px;
+}
+
+#receipt-header {
+   margin: 10px auto;
+}
+
+#receipt-header .receipt-item {
+    /*text-decoration: underline solid var(--color-warm-gray) 2px;*/
+    border-bottom: 2px solid var(--color-warm-gray);
+    text-align: center;
 }
 
 #copied-notification {
