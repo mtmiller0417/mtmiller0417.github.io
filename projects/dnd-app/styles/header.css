@@ -1,0 +1,90 @@
+/* || Element Styles */
+
+body > header {
+    margin: 0;
+    padding: 0;/* 0 8px */
+    line-height: 100%;/* 240% */
+    width: 100%;
+
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    box-sizing: border-box;
+}
+
+/* || Class Styles */
+
+nav .tab-item {
+    padding: 16px;
+    margin: 0;
+
+    /*width: 8%;*/
+    white-space: nowrap;
+    width: min-content;
+    font-size: 18px;
+    text-align: center;
+
+    box-sizing: border-box;
+    /*border: 1px solid transparent;
+    border-top-width: 0;
+    border-bottom-width: 0;*/
+
+    transition-property: border, color, background-color, text-decoration;
+    transition-duration: 0.15s;
+}
+
+nav .tab-item:hover {
+    /*border-left-color: var(--color-light);
+    border-right-color: var(--color-light);*/
+
+    /*text-decoration: underline solid var(--color-dark);*/
+    
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+
+nav .tab-item span {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.center{
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* || ID Styles */
+
+#main-header {
+    min-width: min-content;
+    /*white-space: nowrap;*/
+    overflow: hidden;
+}
+
+#title {
+    /*font-size: 31px;
+    font-weight: 600;*/
+    width: min-content;
+    white-space: nowrap;
+    padding: 8px;
+    box-sizing: border-box;
+    min-width: min-content;
+}
+
+#title #tab-item {
+
+}
+
+.fas .fa-dice-d20 {
+    font-size:36px; 
+    color: #04b976;
+    background-color: #f2f3f4;
+}
+
+#tab-container {
+    height: 100%;
+    align-items: center;
+
+    min-width: min-content;
+    margin-left: auto;
+}

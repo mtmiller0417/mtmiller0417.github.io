@@ -1,0 +1,21 @@
+/* || Element Styles */
+textarea {
+    resize: none;
+    /*border: none;*/
+    font-family: inherit;
+    color: var(--color-light);
+    background-color: rgba(0, 0, 0, 0.3);
+
+    border-radius: 10px;
+    padding: 8px;
+}
+
+/* || OO Styles */
+
+/* || Specific Styles */
+
+#description-container {
+    width: min-content;
+    white-space: nowrap;
+    margin: 10px auto;
+}

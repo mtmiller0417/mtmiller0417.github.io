@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DND App</title>
+        <meta charset="UTF-8"/>
+
+        <!-- Load jQuery -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+        <script src="../../../global-resources/jquery-3.5.1.js"></script>
+
+        <!-- Load Font Awesome -->
+        <script defer src="../../../global-resources/all.js"></script>
+
+        <!-- Link CSS here -->
+        <link rel="stylesheet" href="../styles/main.css" />
+    </head>
+
+    <body>
+        <header id="main-header" class="f-box-row f-y-center">
+            <span id="title" class="clickable tab-item" data-for="home"><i class="fas fa-dice-d20" style="font-size:48px;color:#97fdd8;color:#befee6;color:#aafddf;"></i></span><!--Homebrew creation tool-->
+            <nav id="tab-container" class="f-box-row">
+                <a class="tab-item" data-for="races"><span>Races</span></a>
+                <a class="tab-item" data-for="classes"><span>Classes</span></a>
+                <a class="tab-item" data-for="features"><span>Features</span></a>
+                <a class="tab-item" data-for="spells"><span>Spells</span></a>
+                <a class="tab-item" data-for="items"><span>Items</span></a>
+            </nav>
+        </header>
+
+        <div id="home" class="page-content hide">
+            <div id="description-container">
+                <label for="user-description"></label>
+                <textarea id="user-description" rows="7" cols="45" maxlength="1024" placeholder="Describe your homebrew"></textarea>
+            </div>
+        </div>
+        <div id="races" class="page-content hide">
+            races
+        </div>
+        <div id="classes" class="page-content hide">
+            classes
+        </div>
+        <div id="features" class="page-content hide">
+            features
+        </div>
+        <div id="spells" class="page-content hide">
+            spells
+        </div>
+        <div id="items" class="page-content hide">
+            items
+        </div>
+
+        <!-- Load JavaScript Files -->
+        <script src="../scripts/spell.js"></script>
+        <script src="../scripts/ability.js"></script>
+        <script src="../scripts/classes.js"></script>
+        <script src="../scripts/homebrew.js"></script>
+        <script src="../scripts/init.js"></script>
+        <script>
+            document.addEventListener('load', main(), false);
+        </script>
+    </body>
+</html>

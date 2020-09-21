@@ -108,11 +108,10 @@ function calcWhoWhat(){
     //var re = /,\s|,|\s|,\s*/; 
 
     $('#list-container .tr').each(function(){
-        if( $(this).find('.item-cell input:first').val() && $(this).find('.quantity').val() != 0 ){
+        if( $(this).find('.item-cell input:first').val() && $(this).find('.quantity').val() !== 0 ){
             // Get the elements
             let $tmp = $(this).find('.who-cell input').val().toLowerCase();
             if($tmp.toLowerCase() === 'all'){
-                console.log('all');
                 $tmp = 'a e j l m';
             }
 
@@ -175,7 +174,6 @@ function calcWhoWhat(){
 function getAsNearestCent(value){
     // nearest defaults to true
     value = value.toString();
-    //console.log(parseFloat(value).toFixed(2));
     return parseFloat(value).toFixed(2);
 }
 
@@ -185,7 +183,6 @@ function numToDollar(value){
 
 function appendPersonTotal(name, totalStr){
     let elementStr = '<span><b>' + name + ':&nbsp;</b>$' + numToDollar(totalStr) + '</span>\n';
-    // /console.log(elementStr)
     $('#totals').append( elementStr );
 }
 
@@ -201,9 +198,6 @@ function getOutputasText(){
             lines.push( getElementAsString($(this)) );
         }
     });
-
-    //console.log('Receipt as Text');
-    //console.log(lines.join('\n'));
 
     return lines.join('\n');
 }
@@ -311,8 +305,6 @@ function isRowValid($tr){
 function addReceiptRow(itemName, quantity, rowData){
     let $receiptRow = $('<div class="receipt-row flex-row"></div>');
 
-    console.log('rowData', rowData)
-
     let aTotal = rowData.a,
         eTotal = rowData.e,
         mTotal = rowData.m,
@@ -320,14 +312,8 @@ function addReceiptRow(itemName, quantity, rowData){
         lTotal = rowData.l;
 
     let quantityWidth = $('#receipt-header .receipt-quantity').width(); 
-    console.log('quantityWidth', quantityWidth)
-
     let itemNameWidth = $('#receipt-header .item-name').width();
-    console.log('itemNameWidth', itemNameWidth)
-
     let nameTotalWidth = $('#receipt-header .name-total:first-child').width();
-    console.log('nameTotalWidth', nameTotalWidth)
-
 
     let $receiptHeaderContainer = $('<div class="receipt-header-container flex-row"></div>');
     $receiptHeaderContainer.append( $('<div class="receipt-quantity receipt-item"></div>').html(quantity).width(quantityWidth) );

@@ -27,7 +27,6 @@ function handleImportBtn(event){
  * @param {Event} event The event object created
  */
 function handleExportBtn(event){
-    //console.log('export')
     let priorWidth = $(this).width();
     if( $(this).text().toLowerCase() === 'export' ){
         $(this).text('Hide');
@@ -78,7 +77,6 @@ function handleExportBtn(event){
         $(this).removeClass('hidden');
 
         for(let i = 0; i < whoWhatData.dataList.length; i++){
-            console.log(i);
             // Get variables
             let name = whoWhatData.dataList[i].itemName;
             let q = whoWhatData.dataList[i].itemQuantity;
@@ -98,7 +96,6 @@ function handleExportBtn(event){
  * @param {Event} event 
  */
 function handleContentCopyBtn(event){
-    //console.log('copy btn');
     let text = getOutputasText();
 
     copyToClipboard( text );
@@ -138,7 +135,6 @@ function handleInputChange(event){
 
 
     if( $target.is($itemName) ){
-        console.log($target.val());
         if($target.val().trim() != '' && $target.val() != null){
             setInputValidity($target, 'valid');
         } else {
@@ -198,7 +194,6 @@ function handleInputChange(event){
                     return true;
             }
             // If the entry did not watch any validValue
-            console.log('entry', entry)
             return false;
         });
 
@@ -240,13 +235,11 @@ function handleInputChange(event){
  * @param {KeyboardEvent} event 
  */
 function handleKeydown(event){
-    //console.log( event.key );
     let $tr = $(event.target).parents('.tr');
 
     if(event.key === 'Tab'){
         // If there are no next tr to tab to...
         if(!$(this).parents('.tr').next().length && isRowValid($tr)){
-            console.log('tab supressed')
             // Tab was pressed
             // Supress default opetation 
             event.preventDefault();
